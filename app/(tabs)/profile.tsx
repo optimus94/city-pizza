@@ -1,11 +1,22 @@
-import { Text, View } from 'react-native'
+import PrimaryButton from "@/components/PrimaryButton";
+import { icons } from "@/constants";
+import { router } from "expo-router";
+import { View } from "react-native";
 
 const Profile = () => {
-  return (
-    <View>
-      <Text>Profile</Text>
-    </View>
-  )
-}
+  const handleSignOut = async () => {
+    router.replace("/(auth)/signin");
+  }
 
-export default Profile
+  return (
+    <View className="w-full flex-1 justify-center items-center px-4">
+      <PrimaryButton
+        label="Sign Out"
+        icon={icons.secured}
+        onPress={handleSignOut}
+      />
+    </View>
+  );
+};
+
+export default Profile;

@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components{
+    .header-bar{
+        @apply flex flex-row w-full justify-between items-center px-5 py-4 bg-natural-white border-b border-b-red-50
+    }
+
+    .header-left{
+        @apply flex-row items-center gap-2 flex-1
+    }
+
+    .header-greeting{
+        @apply text-base text-grey-300 font-manrope-medium
+    }
+
+    .header-address{
+        @apply text-xl text-grey-default font-manrope-bold
+    }
+
+    .header-cta{
+        @apply bg-red-50 py-2 px-4 rounded-full
+    }
+
+    .header-cta-text{
+       @apply text-base font-manrope-bold text-red-default
+    }
+
+    .tab-icon{
+        @apply flex size-16 items-center justify-center gap-1 mt-12
+    }
+}

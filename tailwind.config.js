@@ -46,7 +46,7 @@ module.exports = {
       "manrope-bold": ["Manrope-Bold", "sans-serif"],
       "manrope-semibold": ["Manrope-SemiBold", "sans-serif"],
       "manrope-medium": ["Manrope-Medium", "sans-serif"],
-      "manrope-regular": ["Manrope-regular", "sans-serif"],
+      "manrope-regular": ["Manrope-Regular", "sans-serif"],
       "manrope-light": ["Manrope-Light", "sans-serif"],
       "manrope-extralight": ["Manrope-ExtraLight", "sans-serif"],
     }

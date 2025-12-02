@@ -52,9 +52,9 @@ export default function RootLayout() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       {firstTime ? (
-        <Stack.Screen name="(auth)" />            // Loads (auth)/index.tsx
+        <Stack.Screen name="(auth)" />            
       ) : (
-        <Stack.Screen name="(auth)/signin" />     // Loads signin.tsx
+        <Stack.Screen name="(auth)/signin" />     
       )}
     </Stack>
   );

@@ -1,3 +1,6 @@
+import CustomInput from "@/components/CustomInput";
+import PrimaryButton from "@/components/PrimaryButton";
+import { signIn } from "@/lib/auth";
 import { router } from "expo-router";
 import { useState } from "react";
 import {
@@ -9,9 +12,6 @@ import {
   View,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-
-import CustomInput from "@/components/CustomInput";
-import PrimaryButton from "@/components/PrimaryButton";
 import { icons, images } from "../../constants";
 
 const SignIn = () => {
@@ -19,6 +19,26 @@ const SignIn = () => {
     email: "",
     password: "",
   });
+
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleSignIn = async () => {
+    setError(null);
+    setLoading(true);
+
+    try {
+      await signIn({
+        email: form.email,
+        password: form.password,
+      });
+      router.replace("/home");
+    } catch (err: any) {
+      setError(err.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -78,7 +98,7 @@ const SignIn = () => {
               <PrimaryButton
                 label="Sign In"
                 icon={icons.secured}
-                onPress={() => router.push("/")}
+                onPress={handleSignIn}
               />
             </View>
 

@@ -1,3 +1,5 @@
+import CustomInput from "@/components/CustomInput";
+import PrimaryButton from "@/components/PrimaryButton";
 import { router } from "expo-router";
 import { useState } from "react";
 import {
@@ -9,9 +11,6 @@ import {
   View,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-
-import CustomInput from "@/components/CustomInput";
-import PrimaryButton from "@/components/PrimaryButton";
 import { icons, images } from "../../constants";
 
 const SignUp = () => {
