@@ -1,11 +1,20 @@
+import DealMenu from "@/components/DealMenu";
+import FilterTabs from "@/components/FilterTabs";
 import HeaderBar from "@/components/HeaderBar";
-import PrimaryButton from "@/components/PrimaryButton";
-import { deals, icons, images } from "@/constants";
+import PizzaMenu from "@/components/PizzaMenu";
+import {
+  categories,
+  CATEGORY_TITLES,
+  categoryDataMap,
+  icons,
+  images,
+} from "@/constants";
+import { useMemo, useState } from "react";
 import {
   Dimensions,
   FlatList,
   Image,
-  Pressable,
+  ScrollView,
   Text,
   TouchableOpacity,
   View,
@@ -27,47 +36,22 @@ const Home = () => {
   // Calculate dynamic height for the image based on its aspect ratio (148/361)
   const imageHeight = contentWidth * (148 / 361);
 
-  const renderDeal = ({ item }: any) => (
-    <Pressable>
-      <View className="w-full px-4 mb-4">
-        <View className="bg-natural-white rounded-3xl shadow" style={{overflow: "hidden"}}>
-          <Image
-            source={item.image}
-            resizeMode="cover"
-            style={{ width: contentWidth, height: imageHeight }}
-          />
-          <View className="px-4 pb-4">
-            <Text className="text-lg font-manrope-bold mt-2">{item.title}</Text>
-            <Text className="text-sm text-grey-300">{item.description}</Text>
-          </View>
+  const [activeCategory, setActiveCategory] = useState("deals");
+  const data = useMemo(() => {
+    return categoryDataMap[activeCategory] || [];
+  }, [activeCategory]);
 
-          <View className="w-full flex-row justify-between items-center px-4 pb-4">
-            {/* Price Section */}
-            <View className="justify-start items-start">
-              <Text className="text-base text-grey-400 font-manrope-medium">
-                From:{" "} </Text>
-                <Text className="text-2xl text-red-default font-manrope-bold">
-                  {item.price}
-                </Text>
-              
-            </View>
-
-            {/* Button Section */}
-            <View>
-              <PrimaryButton
-                label="Get Started"
-                onPress={() => console.log("Get Started Pressed")}
-              />
-            </View>
-          </View>
-        </View>
-      </View>
-    </Pressable>
-  );
+  const categoryTitle = useMemo(() => {
+    return CATEGORY_TITLES[activeCategory] ?? "Featured Deals";
+  }, [activeCategory]);
 
   const ListHeader = () => (
-    <View className="flex-col gap-4">
-      <HeaderBar />
+    <View className="flex-col gap-4 pt-4">
+      <FilterTabs
+        categories={categories}
+        active={activeCategory}
+        onChange={setActiveCategory}
+      />
 
       <View className="w-full px-4">
         <TouchableOpacity activeOpacity={0.7}>
@@ -97,24 +81,44 @@ const Home = () => {
 
       <View className="w-full px-4 pb-4">
         <Text className="text-xl text-grey-default font-clashdisplay-bold">
-          Featured Deals
+          {categoryTitle}
         </Text>
       </View>
     </View>
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <FlatList
-        data={deals}
-        renderItem={renderDeal}
-        keyExtractor={(item) => item.id.toString()}
-        ListHeaderComponent={ListHeader}
-        contentContainerStyle={{
-          paddingBottom: TAB_BAR_HEIGHT - insets.bottom + 16,
-        }}
-        showsVerticalScrollIndicator={false}
-      />
+    <SafeAreaView className="flex-1 bg-bg-default">
+      <HeaderBar />
+      {activeCategory === "pizza" ||
+      activeCategory === "combo" ||
+      activeCategory === "chicken" ? (
+        <ScrollView>
+          <View style={{ flex: 1, paddingBottom: TAB_BAR_HEIGHT - insets.bottom + 16 }}>
+            <ListHeader />
+            <PizzaMenu
+              items={data}
+            />
+          </View>
+        </ScrollView>
+      ) : (
+        <FlatList
+          data={data}
+          renderItem={({ item }) => (
+            <DealMenu
+              item={item}
+              contentWidth={contentWidth}
+              imageHeight={imageHeight}
+            />
+          )}
+          keyExtractor={(item) => item.id.toString()}
+          ListHeaderComponent={ListHeader}
+          contentContainerStyle={{
+            paddingBottom: TAB_BAR_HEIGHT - insets.bottom + 24,
+          }}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
     </SafeAreaView>
   );
 };

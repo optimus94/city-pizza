@@ -4,6 +4,7 @@ import { signIn } from "@/lib/auth";
 import { router } from "expo-router";
 import { useState } from "react";
 import {
+  Alert,
   Image,
   KeyboardAvoidingView,
   Platform,
@@ -26,14 +27,19 @@ const SignIn = () => {
   const handleSignIn = async () => {
     setError(null);
     setLoading(true);
-
     try {
+      if (!form.email || !form.password)
+        return Alert.alert(
+          "Error",
+          "Please enter the valid email or password."
+        );
       await signIn({
         email: form.email,
         password: form.password,
       });
       router.replace("/home");
     } catch (err: any) {
+      Alert.alert("Login Failed", err.message || "Invalid email or password.");
       setError(err.message || "Something went wrong");
     } finally {
       setLoading(false);

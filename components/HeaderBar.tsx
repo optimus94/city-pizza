@@ -1,5 +1,6 @@
 import { images } from "@/constants";
 import { getCurrentUser } from "@/lib/auth";
+import useLayoutStore from "@/store/layout.store";
 import * as Location from "expo-location";
 import { useEffect, useState } from "react";
 import { Dimensions, Image, Text, TouchableOpacity, View } from "react-native";
@@ -8,6 +9,7 @@ const HeaderBar = () => {
   const [userName, setUserName] = useState<string | null>(null);
   const [address, isAddress] = useState<string>("Fetching Address...");
   const screenWidth = Dimensions.get("window").width;
+  const { setHeaderHeight } = useLayoutStore();
 
   {
     /* Fetching Username */
@@ -65,7 +67,7 @@ const HeaderBar = () => {
   }, []);
 
   return (
-    <View className="header-bar">
+    <View className="header-bar" onLayout={(event) => {setHeaderHeight(event.nativeEvent.layout.height)}}>
       <View className="header-left">
         <Image source={images.brand} className="size-14" />
         <View className="flex-start mr-2">

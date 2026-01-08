@@ -9,7 +9,7 @@ const Profile = () => {
   }
 
   return (
-    <View className="w-full flex-1 justify-center items-center px-4">
+    <View className="bg-bg-default w-full flex-1 justify-center items-center px-4">
       <PrimaryButton
         label="Sign Out"
         icon={icons.secured}

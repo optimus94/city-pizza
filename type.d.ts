@@ -1,17 +1,4 @@
 import { ImageSourcePropType } from "react-native";
-import { Models } from "react-native-appwrite";
-
-export interface User extends Models.Document {
-  $id: string;
-  $collectionId: string;
-  $databaseId: string;
-  $createdAt: string;
-  $updatedAt: string;
-  $permissions: string[];
-  $sequence: number;
-  name: string;
-  email: string;
-}
 
 interface CustomInputProps {
   placeholder?: string;
@@ -39,13 +26,18 @@ interface TabBarIconProps {
   icon: ImageSourcePropType;
 }
 
-interface CreateUserParams {
-  name: string;
+interface SignInParams {
   email: string;
   password: string;
 }
 
-interface SignInParams {
-  email: string;
-  password: string;
+interface CartItemParams {
+  id: number;
+  variantId: string;
+  title: string;
+  description: string;
+  image: ImageSourcePropType;
+  unitPrice: number;
+  quantity: number;
+  totalPrice: number;
 }

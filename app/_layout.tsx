@@ -3,6 +3,7 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
+import Toast from "react-native-toast-message";
 import "./globals.css";
 
 SplashScreen.preventAutoHideAsync();
@@ -11,6 +12,8 @@ export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     "ClashDisplay-Bold": require("../assets/fonts/ClashDisplay-Bold.ttf"),
     "Manrope-Regular": require("../assets/fonts/Manrope-Regular.ttf"),
+    "Manrope-Medium": require("../assets/fonts/Manrope-Medium.ttf"),
+    "Manrope-SemiBold": require("../assets/fonts/Manrope-SemiBold.ttf"),
     "Manrope-Bold": require("../assets/fonts/Manrope-Bold.ttf"),
   });
 
@@ -50,12 +53,15 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      {firstTime ? (
-        <Stack.Screen name="(auth)" />            
-      ) : (
-        <Stack.Screen name="(auth)/signin" />     
-      )}
-    </Stack>
+    <>
+      <Stack screenOptions={{ headerShown: false }}>
+        {firstTime ? (
+          <Stack.Screen name="(auth)" />
+        ) : (
+          <Stack.Screen name="(auth)/signin" />
+        )}
+      </Stack>
+      <Toast />
+    </>
   );
 }

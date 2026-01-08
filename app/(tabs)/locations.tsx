@@ -3,7 +3,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const Location = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView className="bg-bg-default">
       <View className="w-full flex-1 justify-center items-center">
         <Text>Location</Text>
       </View>

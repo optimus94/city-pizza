@@ -30,4 +30,16 @@
     .tab-icon{
         @apply flex size-16 items-center justify-center gap-1 mt-12
     }
+
+    .cart-item{
+        @apply flex flex-row items-center justify-between bg-natural-white rounded-3xl p-4
+    }
+
+    .cart-item__image {
+        @apply size-24 rounded-lg justify-center
+    }
+
+    .cart-item__actions {
+        @apply flex flex-row items-center justify-center size-6 bg-red-50 rounded-md;
+    }
 }

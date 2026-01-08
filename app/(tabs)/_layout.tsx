@@ -3,20 +3,36 @@ import { TabBarIconProps } from "@/type";
 import { BlurView } from "expo-blur";
 import { Tabs } from "expo-router";
 import { Image, Platform, View } from "react-native";
+import Animated, {
+  useAnimatedStyle,
+  withTiming,
+} from "react-native-reanimated";
 
-
-const TabBarIcon = ({ focused, icon }: TabBarIconProps) => (
-  <View
-    className={`tab-icon ${focused ? "bg-natural-white rounded-full" : ""} justify-center items-center`}
-  >
-    <Image
-      source={icon}
-      className="size-8"
-      resizeMode="contain"
-      tintColor={focused ? "#B70F0A" : "null"}
-    />
-  </View>
-);
+const TabBarIcon = ({ focused, icon }: TabBarIconProps) => {
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      {
+        scale: withTiming(focused ? 1.1 : 1, { duration: 200 }),
+      },
+    ],
+  }));
+  return (
+    <View
+      className={`tab-icon ${
+        focused ? "bg-natural-white rounded-full" : ""
+      } justify-center items-center`}
+    >
+      <Animated.View style={animatedStyle}>
+        <Image
+          source={icon}
+          className="size-8"
+          resizeMode="contain"
+          tintColor={focused ? "#B70F0A" : "null"}
+        />
+      </Animated.View>
+    </View>
+  );
+};
 
 export default function TabLayout() {
   return (
@@ -36,10 +52,11 @@ export default function TabLayout() {
           left: 16,
           right: 16,
           overflow: "hidden", // clip blur to rounded corners
-          backgroundColor: "transparent", // must be transparent
           elevation: 0, // android z
+          backgroundColor: "transparent", // must be transparent
           justifyContent: "center",
-          alignSelf: "center"
+          alignSelf: "center",
+          borderTopWidth: 0,
         },
 
         // Render BlurView as the tab bar background
@@ -53,7 +70,7 @@ export default function TabLayout() {
                 flex: 1,
                 ...Platform.select({
                   ios: { backgroundColor: "rgba(233,181,179,0.40)" },
-                  android: { backgroundColor: "rgba(233,181,179,0.40)" },
+                  android: { backgroundColor: "rgba(233, 181, 179, 1.00)" },
                 }),
               }}
             ></BlurView>
