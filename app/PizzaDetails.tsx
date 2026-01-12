@@ -4,6 +4,7 @@ import PizzaDetailsHeader from "@/components/PizzaDetails/PizzaDetailsHeader";
 import SizeSelector from "@/components/PizzaDetails/SizeSelector";
 import PrimaryButton from "@/components/PrimaryButton";
 import { TOPPINGS, pizza } from "@/constants";
+import usePizzaSelectionStore from "@/store/sizeselection.store";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useState } from "react";
 import { ScrollView, View } from "react-native";
@@ -23,7 +24,16 @@ const PizzaDetails = ({ route }: any) => {
 
   const navigation = useNavigation<any>();
 
-  const [size, setSize] = useState(cartItem.sizes[0]);
+  const selectedSizes = usePizzaSelectionStore((state) => state.selectedSizes);
+  const setSelectedSize = usePizzaSelectionStore(
+    (state) => state.setSelectedSize
+  );
+
+  const size = selectedSizes[cartItem.id] ?? {
+    ...cartItem.sizes[0],
+    price: cartItem.sizes[0].price,
+  };
+
   const [toppings, setToppings] = useState<string[]>(
     cartItem.toppings || cartItem.defaultToppings || []
   );
@@ -37,7 +47,10 @@ const PizzaDetails = ({ route }: any) => {
   const price = parseFloat(size.price || cartItem.price);
 
   return (
-    <SafeAreaView edges={["top"]} style={{ flex: 1, paddingBottom: 16 }}>
+    <SafeAreaView
+      edges={["top"]}
+      style={{ flex: 1, paddingBottom: 16, backgroundColor: "#F3F7F8" }}
+    >
       <PizzaDetailsHeader onBack={() => navigation.goBack()} />
       <ScrollView
         className="px-4"
@@ -48,7 +61,12 @@ const PizzaDetails = ({ route }: any) => {
         <SizeSelector
           sizes={cartItem.sizes}
           selected={size}
-          onSelect={setSize}
+          onSelect={(s) =>
+            setSelectedSize(cartItem.id, {
+              ...s,
+              price: s.price,
+            })
+          }
         />
 
         <OptionGroups

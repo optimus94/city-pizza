@@ -1,10 +1,11 @@
 import { icons } from "@/constants";
 import useCartStore from "@/store/cart.store";
+import usePizzaSelectionStore from "@/store/sizeselection.store";
 import { toNumberPrice } from "@/utils/price";
 import React, { useState } from "react";
 import { Image, Pressable, Text, View } from "react-native";
+import PizzaSelectionModal from "./PizzaSelectionModal";
 import PrimaryButton from "./PrimaryButton";
-import SizeSelector from "./SizeSelector";
 
 type PizzaMenuParams = {
   items: any[];
@@ -13,9 +14,11 @@ type PizzaMenuParams = {
 
 const PizzaMenu = ({ items, onPress }: PizzaMenuParams) => {
   const { addItem } = useCartStore();
+  const selectedSizes = usePizzaSelectionStore((state) => state.selectedSizes);
+  const setSelectedSize = usePizzaSelectionStore((state) => state.setSelectedSize);
+
 
   const [activePizza, setActivePizza] = useState<any>(null);
-  const [selectedSizes, setSelectedSizes] = useState<Record<string, any>>({});
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const openDropDown = (item: any) => {
@@ -24,13 +27,12 @@ const PizzaMenu = ({ items, onPress }: PizzaMenuParams) => {
   };
 
   const handleSelectSize = (size: any) => {
-    setSelectedSizes((prev) => ({
-      ...prev,
-      [activePizza.id]: {
-        ...size,
-        price: toNumberPrice(size.price),
-      },
-    }));
+    if (!activePizza) return;
+
+    setSelectedSize(activePizza.id,{
+      ...size,
+      price: toNumberPrice(size.price),
+    })
   };
 
   // Adding items into cart handling event
@@ -38,13 +40,20 @@ const PizzaMenu = ({ items, onPress }: PizzaMenuParams) => {
     const hasSizes = Array.isArray(item.sizes) && item.sizes.length > 0;
     const size = selectedSizes[item.id];
 
+    const finalSize = hasSizes
+      ? size ?? {
+        ...item.sizes[0],
+        price: toNumberPrice(item.sizes[0].price),
+      }
+    : null;
+
     const label = hasSizes && size ? size.label : "size.label";
     const variantId = `${item.id} - ${label}`;
 
     addItem({
       id: item.id,
       variantId,
-      title: hasSizes && size ? `${item.title} (${size.label})` : item.title,
+      title: finalSize && size ? `${item.title} (${size.label})` : item.title,
       image: item.image,
       unitPrice: toNumberPrice(hasSizes && size ? size.price : item.price),
       description: item.description,
@@ -138,7 +147,7 @@ const PizzaMenu = ({ items, onPress }: PizzaMenuParams) => {
 
       {/* Dropdown Selections */}
       {activePizza && (
-        <SizeSelector
+        <PizzaSelectionModal
           visible={dropdownVisible}
           sizes={activePizza.sizes}
           selected={selectedSizes[activePizza.id]}

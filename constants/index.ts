@@ -20,6 +20,10 @@ import offerBanner from "../assets/images/offer_deal.png";
 import pizza1 from "../assets/images/pizza_1.png";
 import pizza2 from "../assets/images/pizza_2.png";
 import pizza3 from "../assets/images/pizza_3.png";
+import pizzaLG from "../assets/images/pizza_size-large.png";
+import pizzaMD from "../assets/images/pizza_size-medium.png";
+import pizzaSM from "../assets/images/pizza_size-small.png";
+import pizzaXL from "../assets/images/pizza_size-xl.png";
 import pizzaSlice from "../assets/images/pizza_slice.png";
 import plus from "../assets/images/plus.png";
 import profileIcon from "../assets/images/profile_icon.png";
@@ -37,25 +41,29 @@ export const images = {
   pizza1,
   pizza2,
   pizza3,
-  emptyCart
+  emptyCart,
 };
 
 export const icons = {
-    arrowNext,
-    secured,
-    googleIcon,
-    homeIcon,
-    mapIcon,
-    cartIcon,
-    profileIcon,
-    caretNext,
-    caretDown,
-    pizzaSlice,
-    minus,
-    plus,
-    trash,
-    arrowLeft,
-}
+  arrowNext,
+  secured,
+  googleIcon,
+  homeIcon,
+  mapIcon,
+  cartIcon,
+  profileIcon,
+  caretNext,
+  caretDown,
+  pizzaSlice,
+  minus,
+  plus,
+  trash,
+  arrowLeft,
+  pizzaSM,
+  pizzaMD,
+  pizzaLG,
+  pizzaXL,
+};
 
 export const categories = [
   { id: "deals", name: "Deals" },
@@ -64,28 +72,30 @@ export const categories = [
   { id: "chicken", name: "Chicken" },
 ];
 
-export const CATEGORY_TITLES: Record<string,string> = {
+export const CATEGORY_TITLES: Record<string, string> = {
   deals: "Featured Deals",
   pizza: "Popular Pizza",
   combo: "Best Combo",
-  chicken: "Chicken Special"
-}
+  chicken: "Chicken Special",
+};
 
 export const deals = [
   {
     id: 1,
     title: "50% Off Weekends",
-    description: "50% Off Regular Priced Handcrafted or Pan pizzas, Friday-Sunday. Limited time only! Additions and substitutions extra. Not combinable with any other offers. *Limit 4 pizzas per order.",
+    description:
+      "50% Off Regular Priced Handcrafted or Pan pizzas, Friday-Sunday. Limited time only! Additions and substitutions extra. Not combinable with any other offers. *Limit 4 pizzas per order.",
     image: deal_1,
-    price: "$24.99"
+    price: "$24.99",
   },
   {
     id: 2,
     title: "Two Medium Pizzas Deal!",
-    description: "2 medium pizzas (3-Topping or Select Recipes) for one great price! Online only deal. Upgrade to Signature Recipes for $1 and Premium Recipes for $2.",
+    description:
+      "2 medium pizzas (3-Topping or Select Recipes) for one great price! Online only deal. Upgrade to Signature Recipes for $1 and Premium Recipes for $2.",
     image: deal_2,
-    price: "$27.99"
-  }
+    price: "$27.99",
+  },
 ];
 
 export const pizza = [
@@ -101,29 +111,38 @@ export const pizza = [
       {
         label: '10" Small',
         price: "9.99",
-        calories: "170-270 kcal"
+        calories: "170-270 kcal",
+        image: pizzaSM,
+        slice: "6 Slices"
       },
       {
         label: '12" Medium',
         price: "11.99",
         calories: "280-330 kcal",
+        image: pizzaMD,
+        slice: "8 Slices",
       },
       {
         label: '14" Large',
         price: "13.49",
         calories: "330-470 kcal",
+        image: pizzaLG,
+        slice: "10 Slices"
       },
       {
-        label: '16" Extra Large',
+        label: '16" X-Large',
         price: "14.99",
-        calories: "~480+ kcal"
-      }
-    ]
+        calories: "~480+ kcal",
+        image: pizzaXL,
+        slice: "10 Slices",
+      },
+    ],
   },
   {
     id: 2,
     title: "Spicy Veggie Deluxe",
-    description: "Single Pizza with Green Peppers, Onions, Tomatoes & Hot Peppers",
+    description:
+      "Single Pizza with Green Peppers, Onions, Tomatoes & Hot Peppers",
     image: pizza2,
     price: "11.99",
     category: "pizza",
@@ -132,24 +151,28 @@ export const pizza = [
       {
         label: '10" Small',
         price: "9.99",
-        calories: "190-210 kcal"
+        calories: "190-210 kcal",
+        image: pizzaSM,
       },
       {
         label: '12" Medium',
         price: "11.99",
-        calories: "175-220 kcal"
+        calories: "175-220 kcal",
+        image: pizzaMD,
       },
       {
         label: '14" Large',
         price: "13.49",
-        calories: "220-260 kcal"
+        calories: "220-260 kcal",
+        image: pizzaLG,
       },
       {
-        label: '16" Extra Large',
+        label: '16" X-Large',
         price: "14.99",
-        calories: "240-280 kcal"
+        calories: "240-280 kcal",
+        image: pizzaXL,
       },
-    ]
+    ],
   },
   {
     id: 3,
@@ -163,24 +186,28 @@ export const pizza = [
       {
         label: '10" Small',
         price: "9.99",
-        calories: "140-190 kcal"
+        calories: "140-190 kcal",
+        image: pizzaSM,
       },
       {
         label: '12" Medium',
         price: "11.99",
-        calories: "180-200 kcal"
+        calories: "180-200 kcal",
+        image: pizzaMD,
       },
       {
         label: '14" Large',
         price: "13.49",
-        calories: "210-290 kcal"
+        calories: "210-290 kcal",
+        image: pizzaLG,
       },
       {
-        label: '16" Extra Large',
+        label: '16" X-Large',
         price: "14.99",
-        calories: "300-330 kcal"
-      }
-    ]
+        calories: "300-330 kcal",
+        image: pizzaXL,
+      },
+    ],
   },
 ];
 
@@ -206,12 +233,12 @@ export const chicken = [
   },
 ];
 
-export const categoryDataMap : Record<string, any[]> = {
+export const categoryDataMap: Record<string, any[]> = {
   deals: deals,
   pizza: pizza,
   combo: combo,
-  chicken: chicken
-}
+  chicken: chicken,
+};
 
 export const TOPPINGS = [
   "Pepperoni",
@@ -222,23 +249,12 @@ export const TOPPINGS = [
   "Green Peppers",
   "Green Olives",
   "Tomatoes",
-  "Hot Peppers"
+  "Hot Peppers",
 ];
 
-export const CRUSTS = [
-  "Regular",
-  "Thin",
-  "Thick",
-  "Stuffed",
-  "Whole Wheat",
-];
+export const CRUSTS = ["Regular", "Thin", "Thick", "Stuffed", "Whole Wheat"];
 
-export const CHEESE = [
-  "Regular",
-  "Extra Cheese",
-  "Light",
-  "No Cheese",
-];
+export const CHEESE = ["Regular", "Extra Cheese", "Light", "No Cheese"];
 
 export const SAUCE_OPTIONS = [
   "Easy on Sauce",
